@@ -44,7 +44,7 @@
 
 @cl-annot-revisit:export-structure
 (defstruct (l-assignment
-             (:constructor make-assignment (name expression)))
+             (:constructor make-assign (name expression)))
   name
   expression)
 
@@ -55,7 +55,7 @@
 
 @cl-annot-revisit:export-structure
 (defstruct (l-ident
-             (:constructor make-ident (name)))
+             (:constructor make-id (name)))
   name)
 
 @cl-annot-revisit:eval-always
@@ -76,13 +76,13 @@
   lhs
   rhs)
 
-(define-bin-expr add '+)
-(define-bin-expr sub '-)
-(define-bin-expr mul '*)
-(define-bin-expr div '/)
-(define-bin-expr lt '<)
-(define-bin-expr gt '>)
-(define-bin-expr lte '<=)
-(define-bin-expr gte '>=)
-(define-bin-expr eq '==)
-(define-bin-expr ne '!=)
+(define-bin-expr add "+")
+(define-bin-expr sub "-")
+(define-bin-expr mul "*")
+(define-bin-expr div "/")
+(define-bin-expr lt "<")
+(define-bin-expr gt ">")
+(define-bin-expr lte "<=")
+(define-bin-expr gte ">=")
+(define-bin-expr eq "==")
+(define-bin-expr ne "!=")
