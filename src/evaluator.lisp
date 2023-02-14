@@ -1,7 +1,8 @@
 (defpackage #:lang/evaluator
   (:use #:cl
-        #:alexandria
         #:lang/ast)
+  (:import-from #:alexandria
+                #:copy-hash-table)
   (:export #:evaluate))
 (in-package #:lang/evaluator)
 
@@ -30,12 +31,11 @@
          :do (progn ,@body)))
 
 (defmethod evaluate ((e l-while) env)
-  (let ((condition (l-while-condition e)))
-    (while (evaluate condition env)
+  (let ((condition (evaluate (l-while-condition e) env)))
+    (while condition
       (dolist (body (l-while-bodies e))
         (evaluate body env))
-      (setf condition (evaluate (l-while-condition e) env)))
-    nil))
+      (setf condition (evaluate (l-while-condition e) env)))))
 
 (defmethod evaluate ((e l-assignment) env)
   (setf (gethash (l-assignment-name e) env)

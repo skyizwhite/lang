@@ -145,4 +145,23 @@
                                  (make-int 1)
                                  (make-int 2)))
                      (make-hash-table))
-           3))))
+           3)))
+  (testing (format nil
+                   "i = 0; ~
+                    while (i < 10) { ~
+                      i = i + 1; ~
+                    } ~
+                    i ~
+                   ")
+    (ok (= (evaluate (make-program
+                      '()
+                      (make-assign 'i
+                                   (make-int 0))
+                      (make-while (make-lt (make-id 'i)
+                                           (make-int 10))
+                                  (make-assign 'i
+                                               (make-add (make-id 'i)
+                                                         (make-int 1))))
+                      (make-id 'i))
+                     (make-hash-table))
+           10))))
