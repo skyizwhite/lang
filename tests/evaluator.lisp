@@ -107,4 +107,42 @@
                               (make-int 2)
                               (make-int 1))
                      (make-hash-table))
-           1))))
+           1)))
+
+  (testing (format nil
+                   "{ ~
+                      a = 100; ~
+                      b = 200; ~
+                      if (a < b) { ~
+                        500; ~
+                      } else { ~
+                        1000; ~
+                    }")
+    (ok (= (evaluate (make-seq (make-assign 'a
+                                            (make-int 100))
+                               (make-assign 'b
+                                            (make-int 200))
+                               (make-if (make-lt (make-id 'a)
+                                                 (make-id 'b))
+                                        (make-int 500)
+                                        (make-int 1000)))
+                     (make-hash-table))
+           500))))
+
+(deftest check-evaluating-program
+  (testing (format nil
+                   "func add(a, b) { ~
+                      return a + b; ~
+                    } ~
+                    add(1, 2); ~
+                   ")
+    (ok (= (evaluate (make-program
+                      (list (make-func 'add
+                                       '(a b)
+                                       (make-add (make-id 'a)
+                                                 (make-id 'b))))
+                      (make-call 'add
+                                 (make-int 1)
+                                 (make-int 2)))
+                     (make-hash-table))
+           3))))
