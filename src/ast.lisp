@@ -2,7 +2,9 @@
   (:use #:cl)
   (:import-from #:cl-annot-revisit)
   (:import-from #:lang/utils
-                #:symbol-append))
+                #:symbol-append)
+  (:export #:defnode
+           #:define-bin-expr))
 (in-package #:lang/ast)
 
 (defmacro defnode (name &key children rest)

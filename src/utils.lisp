@@ -1,6 +1,5 @@
 (defpackage #:lang/utils
   (:use #:cl)
-  (:import-from #:cl-annot-revisit)
   (:export #:symbol-append))
 (in-package #:lang/utils)
 

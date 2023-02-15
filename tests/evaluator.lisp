@@ -1,9 +1,8 @@
-(defpackage #:lang-tests
-  (:nicknames #:lang-tests/main)
+(defpackage #:lang-tests/evaluator
   (:use #:cl
         #:rove
         #:lang))
-(in-package #:lang-tests)
+(in-package #:lang-tests/evaluator)
 
 (deftest check-evaluating-bin-expr
   (testing "1 + 1 == 2"

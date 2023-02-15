@@ -23,14 +23,14 @@ $ qlot install
 ## Run test
 
 ```zsh
-$ .qlot/bin/rove tests/main.lisp
+$ .qlot/bin/rove tests/evaluator.lisp
 ```
 
 <details>
 <summary>Example</summary>
 
 ```
-$ .qlot/bin/rove tests/main.lisp
+$ .qlot/bin/rove tests/evaluator.lisp
 
 Testing System lang-tests
 
