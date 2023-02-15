@@ -62,7 +62,7 @@ check-evaluating-bin-expr
     ✓ Expect (EVALUATE (T-LTE (T-INT 1) (T-INT 1)) (MAKE-HASH-TABLE)) to be true.
   1 == 1 == 1
     ✓ Expect (EVALUATE (T-EQ (T-INT 1) (T-INT 1)) (MAKE-HASH-TABLE)) to be true.
-  1 !=e 0 == 1
+  1 != 0 == 1
     ✓ Expect (EVALUATE (T-NE (T-INT 1) (T-INT 0)) (MAKE-HASH-TABLE)) to be true.
 check-evaluating-assignment
   {a = 100; a} == 100

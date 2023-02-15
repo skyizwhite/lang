@@ -69,7 +69,7 @@
                         (t-int 1))
                   (make-hash-table))))
   
-  (testing "1 !=e 0 == 1"
+  (testing "1 != 0 == 1"
     (ok (evaluate (t-ne (t-int 1)
                         (t-int 0))
                   (make-hash-table)))))
