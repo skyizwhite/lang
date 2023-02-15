@@ -12,7 +12,7 @@
      (defstruct (,(symbol-append 'l- name)
                   (:constructor
                    ,(symbol-append 't- name)
-                   (,@(append  children (and rest `(&rest ,rest))))))
+                   (,@(append children (and rest `(&rest ,rest))))))
        ,@(append children (and rest (list rest))))))
 
 (defnode program
