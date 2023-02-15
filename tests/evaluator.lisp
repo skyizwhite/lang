@@ -7,105 +7,105 @@
 
 (deftest check-evaluating-bin-expr
   (testing "1 + 1 == 2"
-    (ok (= (evaluate (make-add (make-int 1)
-                               (make-int 1))
+    (ok (= (evaluate (t-add (t-int 1)
+                            (t-int 1))
                      (make-hash-table))
            2)))
 
   (testing "1 - 2 == -1"
-    (ok (= (evaluate (make-sub (make-int 1)
-                               (make-int 2))
+    (ok (= (evaluate (t-sub (t-int 1)
+                            (t-int 2))
                      (make-hash-table))
            -1)))
 
   (testing "2 * 3 == 6"
-    (ok (= (evaluate (make-mul (make-int 2)
-                               (make-int 3))
+    (ok (= (evaluate (t-mul (t-int 2)
+                            (t-int 3))
                      (make-hash-table))
            6)))
 
   (testing "6 / 2 == 3"
-    (ok (= (evaluate (make-div (make-int 6)
-                               (make-int 2))
+    (ok (= (evaluate (t-div (t-int 6)
+                            (t-int 2))
                      (make-hash-table))
            3)))
 
   (testing "1 / 0 == Error!"
-    (signals (evaluate (make-div (make-int 1)
-                                 (make-int 0))
+    (signals (evaluate (t-div (t-int 1)
+                              (t-int 0))
                        (make-hash-table))))
 
   (testing "(1 + (2 * 3) - 1) / 2 == 3"
-    (ok (= (evaluate (make-div (make-sub (make-add (make-int 1)
-                                                   (make-mul (make-int 2)
-                                                             (make-int 3)))
-                                         (make-int 1))
-                               (make-int 2))
+    (ok (= (evaluate (t-div (t-sub (t-add (t-int 1)
+                                          (t-mul (t-int 2)
+                                                 (t-int 3)))
+                                   (t-int 1))
+                            (t-int 2))
                      (make-hash-table))
            3)))
 
   (testing "1 < 2 == 1"
-    (ok (evaluate (make-lt (make-int 1)
-                           (make-int 2))
+    (ok (evaluate (t-lt (t-int 1)
+                        (t-int 2))
                   (make-hash-table))))
 
   (testing "2 > 1 == 1"
-    (ok (evaluate (make-gt (make-int 2)
-                           (make-int 1))
+    (ok (evaluate (t-gt (t-int 2)
+                        (t-int 1))
                   (make-hash-table))))
 
   (testing "1 <= 1 == 1"
-    (ok (evaluate (make-gte (make-int 1)
-                            (make-int 1))
+    (ok (evaluate (t-gte (t-int 1)
+                         (t-int 1))
                   (make-hash-table))))
 
   (testing "1 >= 1 == 1"
-    (ok (evaluate (make-lte (make-int 1)
-                            (make-int 1))
+    (ok (evaluate (t-lte (t-int 1)
+                         (t-int 1))
                   (make-hash-table))))
 
   (testing "1 == 1 == 1"
-    (ok (evaluate (make-eq (make-int 1)
-                           (make-int 1))
+    (ok (evaluate (t-eq (t-int 1)
+                        (t-int 1))
                   (make-hash-table))))
 
   (testing "1 !=e 0 == 1"
-    (ok (evaluate (make-ne (make-int 1)
-                           (make-int 0))
+    (ok (evaluate (t-ne (t-int 1)
+                        (t-int 0))
                   (make-hash-table)))))
 
 (deftest check-evaluating-assignment
   (testing "{a = 100; a} == 100"
-    (ok (= (evaluate (make-seq (make-assign 'a
-                                            (make-int 100))
-                               (make-id 'a))
+    (ok (= (evaluate (t-seq (t-assign 'a
+                                      (t-int 100))
+                            (t-id 'a))
                      (make-hash-table))
            100)))
 
   (testing "{a = 100; b = a + 1; b} == 101"
-    (ok (= (evaluate (make-seq (make-assign 'a
-                                            (make-int 100))
-                               (make-assign 'b
-                                            (make-add (make-id 'a)
-                                                      (make-int 1)))
-                               (make-id 'b))
+    (ok (= (evaluate (t-seq (t-assign 'a
+                                      (t-int 100))
+                            (t-assign 'b
+                                      (t-add (t-id 'a)
+                                             (t-int 1)))
+                            (t-id 'b))
                      (make-hash-table))
            101))))
 
 (deftest check-evaluating-if
   (testing "(if(1 < 2) 2 else 1) == 2"
-    (ok (= (evaluate (make-if (make-lt (make-int 1)
-                                       (make-int 2))
-                              (make-int 2)
-                              (make-int 1))
+    (ok (= (evaluate (t-if (t-lt (t-int 1)
+                                 (t-int 2))
+                           (t-int 2)
+                           (t-int 1))
                      (make-hash-table))
            2)))
 
   (testing "(if(1 > 2) 2 else 1) == 1"
-    (ok (= (evaluate (make-if (make-gt (make-int 1)
-                                       (make-int 2))
-                              (make-int 2)
-                              (make-int 1))
+    (ok (= (evaluate (t-if (t-gt (t-int 1)
+                                 (t-int 2))
+                           (t-int 2)
+                           (t-int 1))
                      (make-hash-table))
            1)))
 
@@ -118,14 +118,14 @@
                       } else { ~
                         1000; ~
                     }")
-    (ok (= (evaluate (make-seq (make-assign 'a
-                                            (make-int 100))
-                               (make-assign 'b
-                                            (make-int 200))
-                               (make-if (make-lt (make-id 'a)
-                                                 (make-id 'b))
-                                        (make-int 500)
-                                        (make-int 1000)))
+    (ok (= (evaluate (t-seq (t-assign 'a
+                                      (t-int 100))
+                            (t-assign 'b
+                                      (t-int 200))
+                            (t-if (t-lt (t-id 'a)
+                                        (t-id 'b))
+                                  (t-int 500)
+                                  (t-int 1000)))
                      (make-hash-table))
            500))))
 
@@ -136,14 +136,14 @@
                     } ~
                     add(1, 2); ~
                    ")
-    (ok (= (evaluate (make-program
-                      (list (make-func 'add
-                                       '(a b)
-                                       (make-add (make-id 'a)
-                                                 (make-id 'b))))
-                      (make-call 'add
-                                 (make-int 1)
-                                 (make-int 2)))
+    (ok (= (evaluate (t-program
+                      (list (t-func 'add
+                                    '(a b)
+                                    (t-add (t-id 'a)
+                                           (t-id 'b))))
+                      (t-call 'add
+                              (t-int 1)
+                              (t-int 2)))
                      (make-hash-table))
            3)))
   (testing (format nil
@@ -153,15 +153,15 @@
                     } ~
                     i ~
                    ")
-    (ok (= (evaluate (make-program
+    (ok (= (evaluate (t-program
                       '()
-                      (make-assign 'i
-                                   (make-int 0))
-                      (make-while (make-lt (make-id 'i)
-                                           (make-int 10))
-                                  (make-assign 'i
-                                               (make-add (make-id 'i)
-                                                         (make-int 1))))
-                      (make-id 'i))
+                      (t-assign 'i
+                                (t-int 0))
+                      (t-while (t-lt (t-id 'i)
+                                     (t-int 10))
+                               (t-assign 'i
+                                         (t-add (t-id 'i)
+                                                (t-int 1))))
+                      (t-id 'i))
                      (make-hash-table))
            10))))

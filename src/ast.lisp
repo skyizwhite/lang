@@ -7,55 +7,55 @@
 
 @cl-annot-revisit:export-structure
 (defstruct (l-program
-             (:constructor make-program (functions &rest bodies)))
+             (:constructor t-program (functions &rest bodies)))
   functions
   bodies)
 
 @cl-annot-revisit:export-structure
 (defstruct (l-func
-             (:constructor make-func (name params body)))
+             (:constructor t-func (name params body)))
   name
   params
   body)
 
 @cl-annot-revisit:export-structure
 (defstruct (l-if
-             (:constructor make-if (condition then else)))
+             (:constructor t-if (condition then else)))
   condition
   then
   else)
 
 @cl-annot-revisit:export-structure
 (defstruct (l-seq
-             (:constructor make-seq (&rest bodies)))
+             (:constructor t-seq (&rest bodies)))
   bodies)
 
 @cl-annot-revisit:export-structure
 (defstruct (l-while
-             (:constructor make-while (condition &rest bodies)))
+             (:constructor t-while (condition &rest bodies)))
   condition
   bodies)
 
 @cl-annot-revisit:export-structure
 (defstruct (l-call
-             (:constructor make-call (name &rest args)))
+             (:constructor t-call (name &rest args)))
   name
   args)
 
 @cl-annot-revisit:export-structure
 (defstruct (l-assignment
-             (:constructor make-assign (name expression)))
+             (:constructor t-assign (name expression)))
   name
   expression)
 
 @cl-annot-revisit:export-structure
 (defstruct (l-int
-             (:constructor make-int (value)))
+             (:constructor t-int (value)))
   value)
 
 @cl-annot-revisit:export-structure
 (defstruct (l-ident
-             (:constructor make-id (name)))
+             (:constructor t-id (name)))
   name)
 
 @cl-annot-revisit:eval-always
@@ -66,12 +66,12 @@
 @cl-annot-revisit:eval-always
 (defmacro define-bin-expr (name op)
   `(cl-annot-revisit:export
-     (defun ,(symbol-append 'make- name) (a b)
-       (make-bin-expr ,op a b))))
+     (defun ,(symbol-append 't- name) (a b)
+       (t-bin-expr ,op a b))))
 
 @cl-annot-revisit:export-structure
 (defstruct (l-bin-expr
-             (:constructor make-bin-expr (op lhs rhs)))
+             (:constructor t-bin-expr (op lhs rhs)))
   op
   lhs
   rhs)
