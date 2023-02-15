@@ -5,73 +5,51 @@
                 #:symbol-append))
 (in-package #:lang/ast)
 
-(named-readtables:in-readtable cl-annot-revisit:at-syntax-readtable)
+(defmacro defnode (name &key children rest)
+  `(cl-annot-revisit:export-structure
+     (defstruct (,(symbol-append 'l- name)
+                  (:constructor
+                   ,(symbol-append 't- name)
+                   (,@(append  children (and rest `(&rest ,rest))))))
+       ,@(append children (and rest (list rest))))))
 
-@cl-annot-revisit:export-structure
-(defstruct (l-program
-             (:constructor t-program (functions &rest bodies)))
-  functions
-  bodies)
+(defnode program
+  :children (functions)
+  :rest bodies)
 
-@cl-annot-revisit:export-structure
-(defstruct (l-func
-             (:constructor t-func (name params body)))
-  name
-  params
-  body)
+(defnode func
+  :children (name params body))
 
-@cl-annot-revisit:export-structure
-(defstruct (l-if
-             (:constructor t-if (condition then else)))
-  condition
-  then
-  else)
+(defnode if
+  :children (condition then else))
 
-@cl-annot-revisit:export-structure
-(defstruct (l-seq
-             (:constructor t-seq (&rest bodies)))
-  bodies)
+(defnode seq
+  :rest bodies)
 
-@cl-annot-revisit:export-structure
-(defstruct (l-while
-             (:constructor t-while (condition &rest bodies)))
-  condition
-  bodies)
+(defnode while
+  :children (condition)
+  :rest bodies)
 
-@cl-annot-revisit:export-structure
-(defstruct (l-call
-             (:constructor t-call (name &rest args)))
-  name
-  args)
+(defnode call
+  :children (name)
+  :rest args)
 
-@cl-annot-revisit:export-structure
-(defstruct (l-assignment
-             (:constructor t-assign (name expression)))
-  name
-  expression)
+(defnode assign
+  :children (name expression))
 
-@cl-annot-revisit:export-structure
-(defstruct (l-int
-             (:constructor t-int (value)))
-  value)
+(defnode int
+  :children (value))
 
-@cl-annot-revisit:export-structure
-(defstruct (l-ident
-             (:constructor t-id (name)))
-  name)
+(defnode id
+  :children (name))
 
-@cl-annot-revisit:eval-always
+(defnode bin-expr
+  :children (op lhs rhs))
+
 (defmacro define-bin-expr (name op)
   `(cl-annot-revisit:export
      (defun ,(symbol-append 't- name) (a b)
        (t-bin-expr ,op a b))))
-
-@cl-annot-revisit:export-structure
-(defstruct (l-bin-expr
-             (:constructor t-bin-expr (op lhs rhs)))
-  op
-  lhs
-  rhs)
 
 (define-bin-expr add "+")
 (define-bin-expr sub "-")

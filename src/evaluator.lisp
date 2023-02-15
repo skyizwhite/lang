@@ -37,12 +37,12 @@
         (evaluate body env))
       (setf condition (evaluate (l-while-condition e) env)))))
 
-(defmethod evaluate ((e l-assignment) env)
-  (setf (gethash (l-assignment-name e) env)
-        (evaluate (l-assignment-expression e) env)))
+(defmethod evaluate ((e l-assign) env)
+  (setf (gethash (l-assign-name e) env)
+        (evaluate (l-assign-expression e) env)))
 
-(defmethod evaluate ((e l-ident) env)
-  (gethash (l-ident-name e) env))
+(defmethod evaluate ((e l-id) env)
+  (gethash (l-id-name e) env))
 
 (defmethod evaluate ((e l-call) env)
   (let ((func (gethash (l-call-name e) env))
