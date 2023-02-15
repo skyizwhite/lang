@@ -4,6 +4,8 @@ Very simple interpreter written in Common Lisp.
 
 Original(written in JavaScript): https://github.com/kmizu/minis
 
+⚠️ This is a toy program for study.
+
 ## Requirements
 
 - [roswell](https://github.com/roswell/roswell)
@@ -50,8 +52,8 @@ $ qlot install
 ```lisp
 ; Define AST node
 (defnode foo
-  :children (ch1 ch2)
-  :rest bodies)
+  :children (ch1 ch2) ; named child nodes
+  :rest bodies)       ; variable-length child nodes
 ```
 `defnode` macro will generate:
 - `l-foo`: structure
