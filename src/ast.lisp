@@ -1,6 +1,8 @@
 (defpackage #:lang/ast
   (:use #:cl)
-  (:import-from #:cl-annot-revisit))
+  (:import-from #:cl-annot-revisit)
+  (:import-from #:lang/utils
+                #:symbol-append))
 (in-package #:lang/ast)
 
 (named-readtables:in-readtable cl-annot-revisit:at-syntax-readtable)
@@ -57,11 +59,6 @@
 (defstruct (l-ident
              (:constructor t-id (name)))
   name)
-
-@cl-annot-revisit:eval-always
-(defun symbol-append (&rest symbols)
-  (intern (apply #'concatenate 'string
-                 (mapcar #'symbol-name symbols))))
 
 @cl-annot-revisit:eval-always
 (defmacro define-bin-expr (name op)
