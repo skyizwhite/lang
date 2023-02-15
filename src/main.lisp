@@ -1,6 +1,6 @@
-(defpackage #:lang
+(uiop:define-package #:lang
   (:nicknames #:lang/main)
   (:use #:cl)
-  (:import-from #:lang/ast)
-  (:import-from #:lang/evaluator))
+  (:use-reexport #:lang/ast)
+  (:use-reexport #:lang/evaluator))
 (in-package #:lang)
