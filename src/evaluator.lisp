@@ -60,10 +60,10 @@
 (defmethod evaluate ((e l-int) env)
   (l-int-value e))
 
-(defmacro evaluate-bin-expr (op e env)
-  `(funcall ,op
-            (evaluate (l-bin-expr-lhs ,e) ,env)
-            (evaluate (l-bin-expr-rhs ,e) ,env)))
+(defun evaluate-bin-expr (op e env)
+  (funcall op
+           (evaluate (l-bin-expr-lhs e) env)
+           (evaluate (l-bin-expr-rhs e) env)))
 
 (defmethod evaluate ((e l-bin-expr) env)
   (let ((op (l-bin-expr-op e)))
