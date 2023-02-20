@@ -4,4 +4,4 @@
   :depends-on ("rove"
                "lang-tests/macros"
                "lang-tests/evaluator")
-  :perform (test-op (o c) (symbol-call :rove '#:run c)))
+  :perform (test-op (o c) (symbol-call :rove '#:run c :style :dot)))
