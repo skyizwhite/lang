@@ -1,0 +1,9 @@
+#|-*- mode:lisp -*-|#
+
+(uiop:define-package #:lake-user
+  (:mix #:cl
+        #:lake))
+(in-package #:lake-user)
+
+(task "spec" ()
+  (asdf:test-system :lang))
