@@ -7,46 +7,46 @@
            #:define-bin-expr))
 (in-package #:lang/ast)
 
-(defmacro defnode (name &key children rest)
+(defmacro defnode (name &key props rest)
   `(cl-annot-revisit:export-structure
      (defstruct (,(symbol-append 'l- name)
                   (:constructor
                    ,(symbol-append 't- name)
-                   (,@(append children (and rest `(&rest ,rest))))))
-       ,@(append children (and rest (list rest))))))
+                   (,@(append props (and rest `(&rest ,rest))))))
+       ,@(append props (and rest (list rest))))))
 
 (defnode program
-  :children (functions)
+  :props (functions)
   :rest bodies)
 
 (defnode func
-  :children (name params body))
+  :props (name params body))
 
 (defnode if
-  :children (condition then else))
+  :props (condition then else))
 
 (defnode seq
   :rest bodies)
 
 (defnode while
-  :children (condition)
+  :props (condition)
   :rest bodies)
 
 (defnode call
-  :children (name)
+  :props (name)
   :rest args)
 
 (defnode assign
-  :children (name expression))
+  :props (name expression))
 
 (defnode int
-  :children (value))
+  :props (value))
 
 (defnode id
-  :children (name))
+  :props (name))
 
 (defnode bin-expr
-  :children (op lhs rhs))
+  :props (op lhs rhs))
 
 (defmacro define-bin-expr (name op)
   `(cl-annot-revisit:export

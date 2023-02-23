@@ -52,8 +52,8 @@ $ qlot install
 ```lisp
 ; Define AST node
 (defnode foo
-  :children (ch1 ch2) ; named child nodes
-  :rest bodies)       ; variable-length child nodes
+  :props (ch1 ch2) ; named child nodes
+  :rest bodies)    ; variable-length child nodes
 ```
 `defnode` macro will generate:
 - `l-foo`: structure

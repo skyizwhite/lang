@@ -6,10 +6,10 @@
 (in-package #:lang-tests/macros)
 
 (deftest check-defnode
-  (testing "Define node with children and rest."
+  (testing "Define node with props and rest."
     (ok
      (expands '(defnode hoge
-                :children (ch1 ch2)
+                :props (ch1 ch2)
                 :rest bodies)
               '(cl-annot-revisit:export-structure
                 (defstruct (l-hoge
@@ -18,10 +18,10 @@
                   ch2
                   bodies)))))
 
-  (testing "Define node with children."
+  (testing "Define node with props."
     (ok
      (expands '(defnode hoge
-                :children (ch1 ch2))
+                :props (ch1 ch2))
               '(cl-annot-revisit:export-structure
                 (defstruct (l-hoge
                              (:constructor t-hoge (ch1 ch2)))
