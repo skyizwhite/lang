@@ -58,7 +58,7 @@ $ qlot install
 ```
 `defnode` macro will generate:
 - `l-foo`: structure
-- `l-foo-ch1`, `l-foo-ch2`, `l-foo-bodies`: accessor of structure
+- `l-foo-ch1`, `l-foo-ch2`, `l-foo-bodies`: accessors of structure
 - `(t-foo (ch1 ch2 &rest bodies) ...)`: constructor of structure
 - Other structure related methods
 
@@ -69,7 +69,7 @@ Then you can implement `evaluate` method to define how to evaluate the AST node.
   ...)
 ```
 
-## Run test
+### Run test
 
 ```zsh
 $ .qlot/bin/lake spec
